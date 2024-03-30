@@ -17,7 +17,7 @@ if not BOT_TOKEN:
     logger.error("BOT_TOKEN is not set")
 
 bot = Bot(BOT_TOKEN)
-dp = Dispatcher(bot)
+dp = Dispatcher()
 
 logger.info("Loading model")
 
@@ -34,7 +34,7 @@ def predict(data: dict) -> float:
     return y_pred
 
 
-@dp.message_handler(commands=["start"])
+@dp.Command(("start"))
 async def start(message: types.Message):
     logging.info("Received /start command")
 
@@ -45,7 +45,7 @@ async def start(message: types.Message):
     )
 
 
-@dp.message_handler()
+@dp.Command(('test'))
 async def message(message: types.Message):
     logging.info("Received message: " + str(message))
     try:

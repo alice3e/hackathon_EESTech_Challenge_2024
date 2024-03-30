@@ -3,7 +3,7 @@ import os
 import pickle
 import logging
 
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import Bot, Dispatcher, types
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -15,7 +15,7 @@ if not BOT_TOKEN:
     logger.error("BOT_TOKEN is not set")
 
 bot = Bot(BOT_TOKEN)
-dp = Dispatcher(bot)
+dp = Dispatcher()
 
 logger.info("Loading model")
 
@@ -36,29 +36,7 @@ async def start(message: types.Message):
     logging.info("Received /start command")
 
     await message.reply(
-        """Hello friend! To get prediction from model, send me a json data, and I will send you prediction.
-        
-        Example: {
-        "gender": "female",
-        "seniorcitizen": 0,
-        "partner": "yes",
-        "dependents": "no",
-        "phoneservice": "no",
-        "multiplelines": "no_phone_service",
-        "internetservice": "dsl",
-        "onlinesecurity": "no",
-        "onlinebackup": "yes",
-        "deviceprotection": "no",
-        "techsupport": "no",
-        "streamingtv": "no",
-        "streamingmovies": "no",
-        "contract": "month-to-month",
-        "paperlessbilling": "yes",
-        "paymentmethod": "electronic_check",
-        "tenure": 24,
-        "monthlycharges": 29.85,
-        "totalcharges": 719
-    }"""
+        """Hello friend! To get prediction from model, send me a json data, and I will send you prediction."""
     )
 
 
