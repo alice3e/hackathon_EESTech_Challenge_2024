@@ -1,8 +1,6 @@
-import json
 import logging
-import pickle
 import asyncio
-
+import csv
 from catboost import CatBoostClassifier
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters.command import Command
@@ -32,7 +30,7 @@ model.load_model(model_file)
 
 # Прогнозирование
 def predict(input_data):
-    # input_data - это ваши данные для прогнозирования, представленные в нужном формате
+    # input_data - это данные для прогнозирования, представленные в нужном формате
     prediction = model.predict(input_data)
     return prediction
 
@@ -174,10 +172,28 @@ async def start(message: types.Message):
 async def message(message: types.Message):
     logging.info("Received message: " + str(message))
 
-    try:
-        customer = json.loads(message.text)
-    except Exception as e:
-        await message.reply("Invalid json data")
+    if message.document:
+        # Проверяем, что документ является CSV файлом
+        if message.document.mime_type == 'text/csv':
+            try:
+                # Получаем объект файла
+                file_obj = await message.document.download()
+
+                # Читаем CSV файл
+                with open(file_obj, 'r') as csv_file:
+                    customer = csv.reader(csv_file)
+                    for row in customer:
+                        # Здесь вы можете обрабатывать каждую строку CSV
+                        print(row)
+
+            except Exception as e:
+                await message.reply("Error reading CSV file: " + str(e))
+                return
+        else:
+            await message.reply("Please send a CSV file.")
+            return
+    else:
+        await message.reply("Please send a document.")
         return
 
     try:
