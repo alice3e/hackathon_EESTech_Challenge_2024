@@ -13,6 +13,7 @@ logger.setLevel(logging.INFO)
 logger.info("Creating bot")
 BOT_TOKEN = "7002908305:AAEz0EBvBR2zCCNvFiIC8J_lX4-Snp6oURo"
 
+
 if not BOT_TOKEN:
     logger.error("BOT_TOKEN is not set")
 
