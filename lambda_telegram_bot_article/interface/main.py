@@ -31,7 +31,7 @@ model.load_model(model_file)
 # Прогнозирование
 def predict(input_data):
     # input_data - это данные для прогнозирования, представленные в нужном формате
-    print("we are here!")
+    print("we are here!") # для дебага
     print(input_data)
     print(type(input_data))
     prediction = model.predict(input_data)
@@ -102,9 +102,8 @@ async def message(message: types.Message):
         print("HELLO")
         with open("data_downloaded.csv", 'r') as csv_file:
             for line in csv_file.readlines():
-                print(line)
-                line_sep = (list(line.split(";"))[2:])
-                print(line_sep)
+                line_sep = (list(line.split(";")))
+                print(line_sep) # проверка на правильность данных
                 churn_probability = predict(line_sep)
                 print(churn_probability)
     except Exception as e:
