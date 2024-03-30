@@ -21,6 +21,7 @@ dp = Dispatcher(bot)
 
 logger.info("Loading model")
 
+
 model_file = "sahsa_work.py"
 
 with open(model_file, "rb") as f_in:
