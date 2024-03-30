@@ -176,15 +176,12 @@ async def message(message: types.Message):
         # Проверяем, что документ является CSV файлом
         if message.document.mime_type == 'text/csv':
             try:
-                # Получаем объект файла
-                file_obj = await message.document.download()
-                # Читаем CSV файл
-                with open(file_obj, 'r') as csv_file:
-                    customer = csv.reader(csv_file)
-                    for row in customer:
-                        # Здесь вы можете обрабатывать каждую строку CSV
-                        print(row)
-
+                file_id = message.document.file_id
+                file = await bot.get_file(file_id)
+                file_path = file.file_path
+                await bot.download_file(file_path, "data_downloaded.csv")
+                for i in csv.reader("data_downloaded.csv"):
+                    print(i)
             except Exception as e:
                 await message.reply("Error reading CSV file: " + str(e))
                 return
