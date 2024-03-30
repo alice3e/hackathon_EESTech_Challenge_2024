@@ -1,3 +1,5 @@
+#  t.me/test_docker_alicee_bot
+## token : 7002908305:AAEz0EBvBR2zCCNvFiIC8J_lX4-Snp6oURo
 # Deploying ML model via telegram bot
 
 Hi, folks. In this article I want to give you another example of how to deploy your model via telegram bot.  
