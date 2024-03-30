@@ -31,103 +31,11 @@ model.load_model(model_file)
 # Прогнозирование
 def predict(input_data):
     # input_data - это данные для прогнозирования, представленные в нужном формате
+    print("we are here!")
+    print(input_data)
+    print(type(input_data))
     prediction = model.predict(input_data)
     return prediction
-
-test_data = list([-1,
- 168,
- -1,
- -1,
- -1,
- 'Отпущ.',
- -1,
- 1008,
- 0,
- 168,
- 75,
- 816,
- -1,
- 28,
- 699,
- '1.0',
- '1.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- '1.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- '0.0',
- 'nan',
- 'nan',
- '0.0',
- 'nan',
- 'nan',
- 'nan',
- '0.0',
- '0.0',
- 'nan',
- '0.0',
- 'nan',
- 'nan',
- 5,
- 2,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0,
- 0])
-
-print(predict(test_data))
 
 @dp.message(Command(commands=["start"]))
 async def start(message: types.Message):
@@ -180,8 +88,6 @@ async def message(message: types.Message):
                 file = await bot.get_file(file_id)
                 file_path = file.file_path
                 await bot.download_file(file_path, "data_downloaded.csv")
-                for i in csv.reader("data_downloaded.csv"):
-                    print(i)
             except Exception as e:
                 await message.reply("Error reading CSV file: " + str(e))
                 return
@@ -193,7 +99,14 @@ async def message(message: types.Message):
         return
 
     try:
-        churn_probability = predict(customer)
+        print("HELLO")
+        with open("data_downloaded.csv", 'r') as csv_file:
+            for line in csv_file.readlines():
+                print(line)
+                line_sep = (list(line.split(";"))[2:])
+                print(line_sep)
+                churn_probability = predict(line_sep)
+                print(churn_probability)
     except Exception as e:
         await message.reply("Sorry. We could not make a prediction for your data")
         return
