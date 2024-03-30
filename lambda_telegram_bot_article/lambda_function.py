@@ -1,10 +1,12 @@
-import json
 import os
+import json
+import logging
 import pickle
 import asyncio
-import logging
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.filters.command import Command
+
 
 
 logger = logging.getLogger()
@@ -34,7 +36,7 @@ def predict(data: dict) -> float:
     return y_pred
 
 
-@dp.Command(("start"))
+@dp.message(Command(("start")))
 async def start(message: types.Message):
     logging.info("Received /start command")
 
@@ -45,7 +47,7 @@ async def start(message: types.Message):
     )
 
 
-@dp.Command(('test'))
+@dp.message(Command(('test')))
 async def message(message: types.Message):
     logging.info("Received message: " + str(message))
     try:

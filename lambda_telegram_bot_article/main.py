@@ -1,15 +1,16 @@
 import json
-import os
-import pickle
 import logging
+import pickle
+import asyncio
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.filters.command import Command
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 logger.info("Creating bot")
-BOT_TOKEN = os.environ.get("BOT_TOKEN")
+BOT_TOKEN = "6747478257:AAEOE8_q7Epjc0UaX0A_CiQ2f2a8WY50gHI"
 
 if not BOT_TOKEN:
     logger.error("BOT_TOKEN is not set")
@@ -31,7 +32,7 @@ def predict(data: dict) -> float:
     return y_pred
 
 
-@dp.message_handler(commands=["start"])
+@dp.message(Command(commands=["start"]))
 async def start(message: types.Message):
     logging.info("Received /start command")
 
@@ -40,7 +41,7 @@ async def start(message: types.Message):
     )
 
 
-@dp.message_handler()
+@dp.message()
 async def message(message: types.Message):
     logging.info("Received message: " + str(message))
 
@@ -67,6 +68,8 @@ async def message(message: types.Message):
             f"The customer won't churn. Probability: {round(churn_probability, 2)}"
         )
 
+async def main():
+    await dp.start_polling(bot)
 
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+    asyncio.run(main())
