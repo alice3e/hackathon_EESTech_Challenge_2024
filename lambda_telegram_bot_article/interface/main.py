@@ -178,7 +178,6 @@ async def message(message: types.Message):
             try:
                 # Получаем объект файла
                 file_obj = await message.document.download()
-
                 # Читаем CSV файл
                 with open(file_obj, 'r') as csv_file:
                     customer = csv.reader(csv_file)
