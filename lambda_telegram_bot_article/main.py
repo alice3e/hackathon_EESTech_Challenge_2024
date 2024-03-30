@@ -5,12 +5,13 @@ import asyncio
 
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters.command import Command
-
+from aiogram.types import FSInputFile
+from aiogram.types import URLInputFile
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 logger.info("Creating bot")
-BOT_TOKEN = "6747478257:AAEOE8_q7Epjc0UaX0A_CiQ2f2a8WY50gHI"
+BOT_TOKEN = "7002908305:AAEz0EBvBR2zCCNvFiIC8J_lX4-Snp6oURo"
 
 if not BOT_TOKEN:
     logger.error("BOT_TOKEN is not set")
@@ -34,11 +35,23 @@ def predict(data: dict) -> float:
 
 @dp.message(Command(commands=["start"]))
 async def start(message: types.Message):
-    logging.info("Received /start command")
+    photo_z = FSInputFile("Z_sasha.png")
 
-    await message.reply(
-        """Отправь мне файл .csv, чтобы получить анализ."""
+    photo_start = URLInputFile(
+        "https://kirovets-ptz.com/upload/iblock/e59/90mngsuutxn0i6ysesxqus33z1v5d5q6/k7m-2021-new.png",
+        filename="K7m-logo.png"
     )
+
+    logging.info("Received /start command")
+    await message.reply(
+        """
+        Привет! Это бот созданный в рамках хакатона EESTech Challenge.
+        Его основной задачей является анализ и предсказание поведения тракторов Кировец.
+        Данный бот использует ML для анализа всех датчиков и систем машины, с целью выявления аномальный значений.
+        Бот создан командой "ЪЕЪ" - @sastsy , @echo100 ,  @alice3e.
+        """
+    )
+    await message.answer_photo(photo_z)
 
 @dp.message(Command(commands=["base"]))
 async def start(message: types.Message):
@@ -89,6 +102,7 @@ async def main():
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
+    print("Bot started!")
     asyncio.run(main())
 
 #%
