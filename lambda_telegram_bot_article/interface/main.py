@@ -3,6 +3,7 @@ import logging
 import pickle
 import asyncio
 
+from catboost import CatBoostClassifier
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters.command import Command
 from aiogram.types import FSInputFile
@@ -22,7 +23,7 @@ dp = Dispatcher()
 
 logger.info("Loading model")
 
-model_file = "model_C=1.0.bin"
+model_file = "../anomaly_detection/anomaly_classifier"
 
 with open(model_file, "rb") as f_in:
     dv, model = pickle.load(f_in)
@@ -53,6 +54,7 @@ async def start(message: types.Message):
         """
     )
     await message.answer_photo(photo_z)
+
 
 @dp.message(Command(commands=["base"]))
 async def start(message: types.Message):
