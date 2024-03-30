@@ -25,15 +25,111 @@ logger.info("Loading model")
 
 model_file = "../anomaly_detection/anomaly_classifier"
 
-with open(model_file, "rb") as f_in:
-    dv, model = pickle.load(f_in)
+# Загрузка модели
+model = CatBoostClassifier()
+model.load_model(model_file)
 
 
-def predict(data: dict) -> float:
-    X = dv.transform([data])
-    y_pred = model.predict_proba(X)[0, 1]
-    return y_pred
+# Прогнозирование
+def predict(input_data):
+    # input_data - это ваши данные для прогнозирования, представленные в нужном формате
+    prediction = model.predict(input_data)
+    return prediction
 
+test_data = list([-1,
+ 168,
+ -1,
+ -1,
+ -1,
+ 'Отпущ.',
+ -1,
+ 1008,
+ 0,
+ 168,
+ 75,
+ 816,
+ -1,
+ 28,
+ 699,
+ '1.0',
+ '1.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '1.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ '0.0',
+ 'nan',
+ 'nan',
+ '0.0',
+ 'nan',
+ 'nan',
+ 'nan',
+ '0.0',
+ '0.0',
+ 'nan',
+ '0.0',
+ 'nan',
+ 'nan',
+ 5,
+ 2,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0])
+
+print(predict(test_data))
 
 @dp.message(Command(commands=["start"]))
 async def start(message: types.Message):
