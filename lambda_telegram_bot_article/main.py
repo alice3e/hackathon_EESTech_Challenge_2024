@@ -37,7 +37,25 @@ async def start(message: types.Message):
     logging.info("Received /start command")
 
     await message.reply(
-        """Hello friend! To get prediction from model, send me a json data, and I will send you prediction."""
+        """Hello friend! To get prediction from model, send me a json data, and I will send you prediction.
+        
+        Андрюшка лохушка))"""
+    )
+
+@dp.message(Command(commands=["test"]))
+async def start(message: types.Message):
+    logging.info("Received /test command")
+
+    await message.reply(
+        """Состояние на 30.03.2024 16:40 - Бот Александра Цыбина Выключен Или Скурился"""
+    )
+
+@dp.message(Command(commands=["help"]))
+async def start(message: types.Message):
+    logging.info("Received /help command")
+
+    await message.reply(
+        """Пока не добавлено..."""
     )
 
 
