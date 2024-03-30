@@ -3,7 +3,7 @@ import logging
 import pickle
 import asyncio
 
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters.command import Command
 
 logger = logging.getLogger()
@@ -37,17 +37,15 @@ async def start(message: types.Message):
     logging.info("Received /start command")
 
     await message.reply(
-        """Hello friend! To get prediction from model, send me a json data, and I will send you prediction.
-        
-        Андрюшка лохушка))"""
+        """Отправь мне файл .csv, чтобы получить анализ."""
     )
 
-@dp.message(Command(commands=["test"]))
+@dp.message(Command(commands=["base"]))
 async def start(message: types.Message):
-    logging.info("Received /test command")
+    logging.info("Received /base command")
 
     await message.reply(
-        """Состояние на 30.03.2024 16:40 - Бот Александра Цыбина Выключен Или Скурился"""
+        """Базы данных не подключена"""
     )
 
 @dp.message(Command(commands=["help"]))
@@ -55,7 +53,8 @@ async def start(message: types.Message):
     logging.info("Received /help command")
 
     await message.reply(
-        """Пока не добавлено..."""
+        """Для анализа отправьте файл .csv
+            Для получения обработанных файлов используйте /base"""
     )
 
 
@@ -91,3 +90,5 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+#%
