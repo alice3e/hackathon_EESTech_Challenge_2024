@@ -21,7 +21,7 @@ dp = Dispatcher(bot)
 
 logger.info("Loading model")
 
-model_file = "model_C=1.0.bin"
+model_file = "sahsa_work.py"
 
 with open(model_file, "rb") as f_in:
     dv, model = pickle.load(f_in)
@@ -40,27 +40,7 @@ async def start(message: types.Message):
     await message.reply(
         """Hello friend! To get prediction from model, send me a json data, and I will send you prediction.
 
-        Example: {
-        "gender": "female",
-        "seniorcitizen": 0,
-        "partner": "yes",
-        "dependents": "no",
-        "phoneservice": "no",
-        "multiplelines": "no_phone_service",
-        "internetservice": "dsl",
-        "onlinesecurity": "no",
-        "onlinebackup": "yes",
-        "deviceprotection": "no",
-        "techsupport": "no",
-        "streamingtv": "no",
-        "streamingmovies": "no",
-        "contract": "month-to-month",
-        "paperlessbilling": "yes",
-        "paymentmethod": "electronic_check",
-        "tenure": 24,
-        "monthlycharges": 29.85,
-        "totalcharges": 719
-    }"""
+        Андрюша лох)"""
     )
 
 
